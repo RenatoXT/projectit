@@ -1,1 +1,44 @@
-body{padding-top:50px;padding-bottom:20px}.body-content{padding-left:15px;padding-right:15px}.carousel-caption p{font-size:20px;line-height:1.4}.carousel-inner .item img[src$=".svg"]{width:100%}#qrCode{margin:15px}@media screen and (max-width:767px){.carousel-caption{display:none}}
+:root {
+    --navbar_height: 50px;
+    --navbar_text_color: rgb(255,255,255)
+}
+
+body {
+    margin-top: var(--navbar_height);
+    margin-bottom: 20px
+}
+
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px
+}
+
+.navbar_container {
+    height: var(--navbar_height);
+    width: 100%;
+    display: inline-block
+}
+
+.profile {
+    display: inline-flex;
+    float: right;
+    align-items: center
+}
+
+.username {
+    margin: 15px;
+    color: var(--navbar_text_color)
+}
+
+.container_user_pic {
+    height: 45px
+}
+
+.user_pic {
+    float: right;
+    max-width: 100%;
+    max-height: 100%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%
+}

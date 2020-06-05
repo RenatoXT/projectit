@@ -3,22 +3,23 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - projectit</title>
+    <title>@ViewData["Title"]</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>
+    @*<environment exclude="Development">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        </environment>*@
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+    @*navbar navbar-inverse navbar-fixed-top*@
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+        <div class="container navbar_container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -26,27 +27,38 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">projectit</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Project It</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Projetos</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">Ajuda</a></li>
                 </ul>
+                <div class="profile">
+                    <p class="username">Renato</p>
+                    <div class="container_user_pic">
+                        <img src="https://avatars1.githubusercontent.com/u/53339726?s=460&u=8d1ddc36d476de4f571d40fbc055200f680e07a8&v=4" class="user_pic" />
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
 
+
+
     <partial name="_CookieConsentPartial" />
 
-    <div class="container body-content">
+    <div class="container body-content" id="body">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2020 - projectit</p>
+
+        <footer class="footer">
+            <hr />
+            <p>&copy; 2020 - ProjectIt</p>
         </footer>
     </div>
+
+
+
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

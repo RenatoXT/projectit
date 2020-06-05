@@ -1,0 +1,234 @@
+﻿@{
+    ViewData["Title"] = "Página Inicial";
+}
+<section id="body">
+
+    <section class="lastProject">
+        <header>
+            <a href="/">
+                <img src="https://cdn1.iconfinder.com/data/icons/gradak-interface/32/interface-91-512.png"
+                     alt="logo do último projeto" />
+            </a>
+        </header>
+
+        <main>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec lectus enim. Phasellus iaculis porta suscipit. Aenean euismod turpis et consequat porttitor. Duis auctor lacinia urna nec viverra. Morbi ultrices nec tellus quis gravida. Morbi finibus auctor magna, vitae facilisis mi convallis sit amet. Phasellus maximus tortor a sem aliquet tincidunt.</p>
+        </main>
+
+        <section class="btn-group"  id="buttons">
+            <a href="/" onclick="" class="btn btn-info addMember">Cadastrar novos membros</a>
+            <a href="/" onclick="" class="btn btn-info addIdeia">Cadastrar novas idéias</a>
+            <a href="/" onclick="" class="btn btn-primary">Ir para o projeto</a>
+        </section>
+    </section>
+
+
+    <div class="projects">
+        <section class="project">
+            <header class="projectHeader">
+                <div class="icon">
+                    <img src="https://cdn1.iconfinder.com/data/icons/gradak-interface/32/interface-91-512.png"
+                         alt="Logo do projeto" />
+                </div>
+                <div class="title">
+                    <h3>Título do projeto</h3>
+                </div>
+            </header>
+            <hr />
+            <main class="projectBody">
+                <div class="description">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec lectus enim. Phasellus iaculis porta suscipit. Aenean euismod turpis et consequat porttitor. Duis auctor lacinia urna nec viverra. Morbi ultrices nec tellus quis gravida. Morbi finibus auctor magna, vitae facilisis mi convallis sit amet. Phasellus maximus tortor a sem aliquet tincidunt.</p>
+                </div>
+
+                <p align="right"><a href="/" class="btn projectsBtn">Ir para o projeto</a></p>
+            </main>
+        </section>
+
+        <section class="project">
+            <header class="projectHeader">
+                <div class="icon">
+                    <img src="https://cdn1.iconfinder.com/data/icons/gradak-interface/32/interface-91-512.png"
+                         alt="Logo do projeto" />
+                </div>
+                <div class="title">
+                    <h3>Título do projeto</h3>
+                </div>
+            </header>
+            <hr />
+            <main class="projectBody">
+                <div class="description">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec lectus enim. Phasellus iaculis porta suscipit. Aenean euismod turpis et consequat porttitor. Duis auctor lacinia urna nec viverra. Morbi ultrices nec tellus quis gravida. Morbi finibus auctor magna, vitae facilisis mi convallis sit amet. Phasellus maximus tortor a sem aliquet tincidunt.</p>
+                </div>
+
+                <p align="right"><a href="/" class="btn projectsBtn">Ir para o projeto</a></p>
+            </main>
+        </section>
+
+        <section class="project">
+            <header class="projectHeader">
+                <div class="icon">
+                    <img src="https://cdn1.iconfinder.com/data/icons/gradak-interface/32/interface-91-512.png"
+                         alt="Logo do projeto" />
+                </div>
+                <div class="title">
+                    <h3>Título do projeto</h3>
+                </div>
+            </header>
+            <hr />
+            <main class="projectBody">
+                <div class="description">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec lectus enim. Phasellus iaculis porta suscipit. Aenean euismod turpis et consequat porttitor. Duis auctor lacinia urna nec viverra. Morbi ultrices nec tellus quis gravida. Morbi finibus auctor magna, vitae facilisis mi convallis sit amet. Phasellus maximus tortor a sem aliquet tincidunt.</p>
+                </div>
+
+                <p align="right"><a href="/" class="btn projectsBtn">Ir para o projeto</a></p>
+            </main>
+        </section>
+
+        <section class="project">
+            <header class="projectHeader">
+                <div class="icon">
+                    <img src="https://cdn1.iconfinder.com/data/icons/gradak-interface/32/interface-91-512.png"
+                         alt="Logo do projeto" />
+                </div>
+                <div class="title">
+                    <h3>Título do projeto</h3>
+                </div>
+            </header>
+            <hr />
+            <main class="projectBody">
+                <div class="description">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec lectus enim. Phasellus iaculis porta suscipit. Aenean euismod turpis et consequat porttitor. Duis auctor lacinia urna nec viverra. Morbi ultrices nec tellus quis gravida. Morbi finibus auctor magna, vitae facilisis mi convallis sit amet. Phasellus maximus tortor a sem aliquet tincidunt.</p>
+                </div>
+
+                <p align="right"><a href="/" class="btn projectsBtn">Ir para o projeto</a></p>
+            </main>
+        </section>
+    </div>
+</section>
+
+
+
+
+
+<style>
+    body {
+        background: #e5e5e522;
+        color: #252828;
+        display: flex;
+    }
+
+    #body {
+        display: flex;
+    }
+
+    #buttons {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 32px;
+        margin: 0 10px;
+    }
+
+        #buttons a {
+            margin-bottom: 10px;
+            font-size: 18px;
+            border-radius: 6px;
+        }
+
+    #buttons a:last-of-type {
+        margin-bottom: 0;
+    }
+
+    #buttons .addIdeia, #buttons .addMember {
+        background-color: #17a295;
+    }
+
+
+
+    .lastProject {
+        width: 80%;
+        margin-right: 30px;
+    }
+
+        .lastProject header {
+            justify-content: center;
+        }
+
+            .lastProject header img {
+                display: flex;
+                max-width: 80%;
+                max-height: 200px;
+                margin-right: 10px;
+            }
+
+        .lastProject main {
+            margin: 20px 0 20px;
+        }
+
+            .lastProject main p {
+                font-size: 16px;
+                text-align: justify;
+            }
+
+    .projects, #body {
+        margin: 20px 0 0 20px;
+        height: 100vh;
+    }
+
+
+    .project {
+        background: #FFF;
+        box-shadow: 0 4px 16px -8px rgba(1,1,1, 0.1);
+        border: 0.5px solid #00000022;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        max-width: 90%;
+        transition: 0.2s;
+    }
+
+        .project:hover {
+            transform: translateX(2rem);
+        }
+
+        .project:last-of-type {
+            margin-bottom: 0px;
+        }
+
+        .project header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+            .project header img {
+                width: 60px;
+                height: 60px;
+                margin-right: 10px;
+            }
+
+        .project .title > p {
+            margin-top: 0;
+        }
+
+        .project p {
+            margin: 10px 0;
+            color: #777;
+        }
+
+            .project p:last-of-type {
+                margin-bottom: 0;
+            }
+
+        .project .description {
+            margin: 0 auto;
+            text-align: justify;
+        }
+
+        .project .projectsBtn {
+            font-size: 18px;
+        }
+
+
+
+    
+</style>
