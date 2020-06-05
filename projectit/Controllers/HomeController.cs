@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using projectit.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace projectit.Controllers
 {
@@ -12,6 +13,7 @@ namespace projectit.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Login = HelperController.CheckLogin(HttpContext.Session);
             return View();
         }
 
