@@ -1,0 +1,45 @@
+﻿@model List<ProjectViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Listagem de Projetos</h2>
+
+<a href="/project/create">Novo Registro</a>
+
+<table class="table table-responsive">
+    <tr>
+        <th colspan="2" class="text-center">Ações</th>
+        <th>ID</th>
+        <th>Code</th>
+        <th>Descriçaõ</th>
+        <th>Data de criação</th>
+        <th>Atualizado em</th>
+
+    </tr>
+
+    @foreach (var project in Model)
+    {
+        <tr>
+            <td>
+                <a href="project/Edit?id=@project.id">Editar</a>
+            </td>
+            <td>
+                <a href="javascript:deleteProject(@project.id)">Apagar</a>
+            </td>
+            <td>@project.id</td>
+            <td>@project.code</td>
+            <td>@project.description</td>
+            <td>@project.created_at</td>
+            <td>@project.updated_at</td>
+        </tr>
+    }
+</table>
+
+<script>
+    function deleteProject(id) {
+        if (confirm("Confirma a exclusão do registro?"))
+            location.href = "project/Delete?id=" + id;
+    }
+</script>

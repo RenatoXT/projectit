@@ -34,7 +34,10 @@
                     @if (ViewBag.Login == true)
                     {
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        @*<li><a asp-area="" asp-controller="Home" asp-action="Index">Projetos</a></li>*@
+                        <li><a asp-area="" asp-controller="Users" asp-action="Index">Users</a></li>
+                        <li><a asp-area="" asp-controller="Team" asp-action="Index">Team</a></li>
+                        <li><a asp-area="" asp-controller="Project" asp-action="Index">Project</a></li>
+                        <li><a asp-area="" asp-controller="PostIt" asp-action="Index">PostIt</a></li>
                         <li><a asp-area="" asp-controller="Login" asp-action="LogOff">LogOff</a></li>
                     }
                     else

@@ -1,0 +1,59 @@
+﻿@model TeamViewModel
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cadastro de Time</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form action="Save" method="post" enctype="multipart/form-data">
+
+            <input type="hidden" name="Operation" value="@ViewBag.Operacao" />
+            @*<input type="hidden" name="id" value="@Model.id" class="form-control disabled" readonly />
+            <span asp-validation-for="id" class="text-danger"></span>
+            <br />*@
+
+            *<label for="name" class="control-label">Name</label>
+            <input type="text" name="name" value="@Model.name" class="form-control" />
+            <span asp-validation-for="name" class="text-danger"></span>
+            <br />
+
+            <label for="skill" class="control-label">Skill</label>
+            <input type="text" name="skill" value="@Model.skill" class="form-control" />
+            <span asp-validation-for="skill" class="text-danger"></span>
+            <br />
+
+
+            @*<input type="date" name="created_at" value="@Model.created_at" class="form-control" />
+            <span asp-validation-for="created_at" class="text-danger"></span>
+
+            <input type="date" name="updated_at" value="@Model.updated_at" class="form-control" />
+            <span asp-validation-for="updated_at" class="text-danger"></span>*@
+
+            <br />
+            <label asp-for="picture" class="control-label" />
+            <input type="file" name="picture" id="picture" onchange="exibirImagem()" class="btn btn-secondary" />
+            <img id="imgPreview" src="data:image/jpeg;base64,@Model.Base64picture" class="img-responsive" width="100" />
+            <span asp-validation-for="picture" class="text-danger"></span>
+            <br />
+
+            <input type="submit" value="Salvar Dados" class="btn btn-success" />
+            <br />
+            <span class="text-danger">@ViewBag.Erro</span>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    function exibirImagem() {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("picture").files[0]);
+        oFReader.onload = function (oFREvent) {
+            document.getElementById("imgPreview").src = oFREvent.target.result;
+        };
+
+    }
+</script>

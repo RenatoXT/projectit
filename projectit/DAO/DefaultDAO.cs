@@ -15,7 +15,6 @@ namespace projectit.DAO
             SetTable();
         }
 
-        protected string Key { get; set; } = "id";
         protected abstract SqlParameter[] CreateParams(T model);
         protected abstract T MountModel(DataRow register);
         protected string Table { get; set; }
@@ -46,7 +45,7 @@ namespace projectit.DAO
         {
             var p = new SqlParameter[]
             {
-                new SqlParameter("id", id),
+                new SqlParameter(Table.ToLower().Replace( "tb", "") + "_id", id),
                 new SqlParameter("table", Table)
             };
 
@@ -55,16 +54,6 @@ namespace projectit.DAO
                 return null;
             else
                 return MountModel(table.Rows[0]);
-        }
-
-        public virtual int NextId()
-        {
-            var p = new SqlParameter[]
-            {
-                new SqlParameter("table", Table)
-            };
-            var table = HelperDAO.RunProcSelect("spNextId", p);
-            return Convert.ToInt32(table.Rows[0][0]);
         }
 
         public virtual List<T> List()

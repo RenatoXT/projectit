@@ -1,0 +1,49 @@
+﻿@model List<UsersViewModel>
+@{
+    ViewData["Title"] = "Usuários";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Listagem de Usuários</h2>
+
+<a href="/users/create">Novo Registro</a>
+
+<table class="table table-responsive">
+
+    <tr>
+        <th colspan="2" class="text-center">Ações</th>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Nickname</th>
+        <th>Email</th>
+        <th>Senha</th>
+        <th>Criado</th>
+        <th>Modificado</th>
+    </tr>
+
+    @foreach (var user in Model)
+    {
+    <tr>
+        <td>
+            <a href="users/Edit?id=@user.id">Editar</a>
+        </td>
+        <td>
+            <a href="javascript:deleteUser(@user.id)">Apagar</a>
+        </td>
+        <td>@user.id</td>
+        <td>@user.name</td>
+        <td>@user.nickname</td>
+        <td>@user.email</td>
+        <td>@user.password</td>
+        <td>@user.created_at</td>
+        <td>@user.updated_at</td>
+    </tr>
+    }
+</table>
+
+<script>
+    function deleteUser(id){
+        if(confirm("Confirma a exclusão do registro?"))
+            location.href = "users/Delete?id=" + id;
+    }
+</script>

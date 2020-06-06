@@ -26,15 +26,15 @@ namespace projectit.Controllers
         {
             ViewBag.Operacao = "I";
             T model = Activator.CreateInstance(typeof(T)) as T;
-            PopViewData("I", model);
+            //PopViewData("I", model);
             return View("Form", model);
         }
 
-        protected virtual void PopViewData(string Operation, T model)
-        {
-            if (GenNextId && Operation == "I")
-                model.id = DAO.NextId();
-        }
+        //protected virtual void PopViewData(string Operation, T model)
+        //{
+        //    if (GenNextId && Operation == "I")
+        //        model.id = DAO.NextId();
+        //}
 
         public IActionResult Save(T model, string Operation)
         {
@@ -44,7 +44,7 @@ namespace projectit.Controllers
                 if (ModelState.IsValid == false)
                 {
                     ViewBag.Operacao = Operation;
-                    PopViewData(Operation, model);
+                    //PopViewData(Operation, model);
                     return View("Form", model);
                 }
                 else
@@ -61,7 +61,7 @@ namespace projectit.Controllers
             {
                 ViewBag.Erro = "Ocorreu um erro: " + erro.Message;
                 ViewBag.Operacao = Operation;
-                PopViewData(Operation, model);
+                //PopViewData(Operation, model);
                 return View("Form", model);
             }
         }
@@ -76,7 +76,7 @@ namespace projectit.Controllers
                     return RedirectToAction("index");
                 else
                 {
-                    PopViewData("A", model);
+                    //PopViewData("A", model);
                     return View("Form", model);
                 }
             }
@@ -103,12 +103,14 @@ namespace projectit.Controllers
 
         protected virtual void ValidateData(T model, string Operation)
         {
-            if (Operation == "I" && DAO.Query(model.id) != null)
-                ModelState.AddModelError("id", "Código já está em uso!");
             if (Operation == "A" && DAO.Query(model.id) == null)
                 ModelState.AddModelError("id", "id inválido!");
-            if (model.id <= 0)
-                ModelState.AddModelError("id", "id inválido!");
+
+            if (model.created_at > DateTime.Now)
+                ModelState.AddModelError("created_at", "Data de criação inválida");
+
+            if (model.updated_at > DateTime.Now)
+                ModelState.AddModelError("updated_at", "Data de atualização inválida");
         }
         
 

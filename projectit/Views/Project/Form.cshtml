@@ -1,0 +1,55 @@
+﻿@model ProjectViewModel
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cadastro de Projeto</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form action="Save" method="post" enctype="multipart/form-data">
+            <span -for="Id" class="text-danger"></span>
+            <input type="hidden" name="Operation" value="@ViewBag.Operacao" />
+
+
+            <label for="code" class="control-label">Code</label>
+            <input type="text" name="code" value="@Model.code" class="form-control" />
+            <span asp-validation-for="code" class="text-danger"></span>
+            <br />
+
+            <label for="description" class="control-label">Descrição</label>
+            <input type="text" name="description" value="@Model.description" class="form-control" />
+            <span asp-validation-for="description" class="text-danger"></span>
+            <br />
+
+
+            <input type="hidden" name="created_at" value="@Model.created_at" class="form-control" />
+            <span asp-validation-for="created_at" class="text-danger"></span>
+
+            <input type="hidden" name="updated_at" value="@Model.updated_at" class="form-control" />
+            <span asp-validation-for="updated_at" class="text-danger"></span>
+
+            <label asp-for="picture" class="control-label" />
+            <input type="file" name="picture" id="picture" onchange="exibirImagem()" class="btn btn-secondary" />
+            <img id="imgPreview" src="data:image/jpeg;base64,@Model.picture" class="img-responsive" width="100" />
+            <span asp-validation-for="picture" class="text-danger"></span>
+            <br />
+
+            <input type="submit" value="Salvar Dados" class="btn btn-success" />
+            <br />
+            <span class="text-danger">@ViewBag.Erro</span>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    function exibirImagem() {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("picture").files[0]);
+        oFReader.onload = function (oFREvent) {
+            document.getElementById("imgPreview").src = oFREvent.target.result;
+        };
+    }
+</script>

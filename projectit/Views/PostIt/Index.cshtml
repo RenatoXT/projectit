@@ -1,0 +1,49 @@
+﻿@model List<PostItViewModel>
+@{
+    ViewData["Title"] = "Post It";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Listagem de Post It</h2>
+
+<a href="/postit/create">Novo Registro</a>
+
+<table class="table table-responsive">
+
+    <tr>
+        <th colspan="2" class="text-center">Ações</th>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Corpo</th>
+        <th>Sendo Feito Por</th>
+        <th>Status</th>
+        <th>Criado</th>
+        <th>Modificado</th>
+    </tr>
+
+    @foreach (var postit in Model)
+    {
+    <tr>
+        <td>
+            <a href="postit/Edit?id=@postit.id">Editar</a>
+        </td>
+        <td>
+            <a href="javascript:deletePostIt(@postit.id)">Apagar</a>
+        </td>
+        <td>@postit.id</td>
+        <td>@postit.header</td>
+        <td>@postit.body</td>
+        <td>@postit.doing_by</td>
+        <td>@postit.status</td>
+        <td>@postit.created_at</td>
+        <td>@postit.updated_at</td>
+    </tr>
+    }
+</table>
+
+<script>
+    function deletePost(id){
+        if(confirm("Confirma a exclusão do registro?"))
+            location.href = "postit/Delete?id=" + id;
+    }
+</script>

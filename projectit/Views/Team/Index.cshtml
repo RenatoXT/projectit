@@ -1,0 +1,46 @@
+﻿@model List<TeamViewModel>
+@{
+    ViewData["Title"] = "Usuários";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Listagem de Times</h2>
+
+<a href="/team/create">Novo Time</a>
+
+<table class="table table-responsive">
+
+    <tr>
+        <th colspan="2" class="text-center">Ações</th>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Skill</th>
+        <th>Criado</th>
+        <th>Modificado</th>
+    </tr>
+
+    @foreach (var team in Model)
+    {
+    <tr>
+        <td>
+            <a href="team/Edit?id=@team.id">Editar</a>
+        </td>
+        <td>
+            <a href="javascript:deleteTeam(@team.id)">Apagar</a>
+        </td>
+
+        <td>@team.id</td>
+        <td>@team.name</td>
+        <td>@team.skill</td>
+        <td>@team.created_at</td>
+        <td>@team.updated_at</td>
+    </tr>
+    }
+</table>
+
+<script>
+    function deleteTeam(id) {
+        if (confirm("Confirma a exclusão do registro?"))
+            location.href = "team/Delete?id=" + id;
+    }
+</script>
