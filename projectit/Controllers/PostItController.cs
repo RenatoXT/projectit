@@ -35,15 +35,11 @@ namespace projectit.Controllers
         {
             base.ValidateData(model, Operation);
 
-
             if (string.IsNullOrEmpty(model.header))
                 ModelState.AddModelError("header", "Preencha o título da ação.");
 
             if (string.IsNullOrEmpty(model.body))
                 ModelState.AddModelError("body", "Preencha a descrição da ação.");
-
-            if (string.IsNullOrEmpty(model.doing_by))
-                ModelState.AddModelError("doing_by", "Preencha quem fará esta ação.");
 
             if (string.IsNullOrEmpty(model.status))
                 ModelState.AddModelError("status", "Determine o status da ação.");

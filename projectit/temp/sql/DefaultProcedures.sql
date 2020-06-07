@@ -247,7 +247,7 @@ CREATE PROCEDURE spUpdate_tbTeam
 	@team_picture VARBINARY(MAX),
 	@team_name VARCHAR(MAX),
 	@team_skill VARCHAR(50),
-	@users_updated_at DATE
+	@team_updated_at DATE
 )
 AS
 BEGIN
@@ -255,7 +255,7 @@ BEGIN
 		team_picture = @team_picture, 
 		team_name = @team_name,
 		team_skill = @team_skill,
-		team_updated_at = @users_updated_at
+		team_updated_at = @team_updated_at
 		WHERE team_id = @id
 END
 GO
@@ -303,13 +303,14 @@ GO
 CREATE PROCEDURE spDelete
 (
 	@id INT,
+	@id_name VARCHAR(MAX),
 	@table VARCHAR(MAX)
 )
 AS
 BEGIN
 	DECLARE @sql VARCHAR(MAX);
 	SET @sql = 'DELETE ' + @table +
-		' WHERE id = ' + CAST(@id AS VARCHAR(MAX))
+		' WHERE ' + @id_name + ' = ' + CAST(@id AS VARCHAR(MAX))
 	EXEC(@sql)
 END
 GO
@@ -317,13 +318,14 @@ GO
 CREATE PROCEDURE spQuery
 (
 	@id INT,
+	@id_name VARCHAR(MAX),
 	@table VARCHAR(MAX)
 )
 AS 
 BEGIN
 	DECLARE @sql VARCHAR(MAX)
 	SET @sql = 'SELECT * FROM ' + @table + 
-		' WHERE id = ' + CAST(@id AS VARCHAR(MAX))
+		' WHERE ' + @id_name + ' = ' + CAST(@id AS VARCHAR(MAX))
 	EXEC(@sql)
 END
 GO
@@ -340,14 +342,19 @@ BEGIN
 END	
 GO
 
-CREATE PROCEDURE spNextId
+ALTER PROCEDURE spLogin
 (
-	@table VARCHAR(MAX)
+	@user	VARCHAR(MAX),
+	@password	VARCHAR(MAX)
 )
 AS
 BEGIN
-	EXEC('SELECT ISNULL(MAX(id) +1, 1) AS MAIOR FROM ' 
-		+ @table)
+	DECLARE @sql VARCHAR(MAX)
+	
+	SET @sql = CONCAT('SELECT * FROM tbUsers WHERE users_nickname = ', CHAR(39), CONVERT(VARCHAR,REPLACE(@user, CHAR(39), '')), CHAR(39),
+						' AND users_password = ', CHAR(39), CONVERT(VARCHAR,REPLACE(@password, CHAR(39), '')), CHAR(39))
+
+	EXEC(@sql)
 END
 GO
 

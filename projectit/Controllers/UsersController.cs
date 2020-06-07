@@ -8,6 +8,7 @@ using projectit.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Data.SqlClient;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace projectit.Controllers
 {
@@ -35,7 +36,7 @@ namespace projectit.Controllers
         {
             base.ValidateData(model, Operation);
 
-           if (string.IsNullOrEmpty(model.name))
+            if (string.IsNullOrEmpty(model.name))
                 ModelState.AddModelError("name", "Preencha o o seu nome.");
 
             if (string.IsNullOrEmpty(model.nickname))
@@ -46,9 +47,6 @@ namespace projectit.Controllers
 
             if (string.IsNullOrEmpty(model.password))
                 ModelState.AddModelError("password", "Preencha a senha");
-
-            if (model.picture == null && Operation == "I")
-                ModelState.AddModelError("picture", "Escolha uma imagem");
 
             if (model.picture != null && model.picture.Length / 1024 / 1024 >= 5)
                 ModelState.AddModelError("picture", "Imagem limitada à 5MB.");
@@ -66,5 +64,31 @@ namespace projectit.Controllers
                 }
             }
         }
+
+        public override IActionResult Index()
+        {
+            if (!HelperController.CheckLogin(HttpContext.Session))
+            {
+                ViewBag.Operacao = "I";
+                UsersViewModel model = new UsersViewModel();
+                return View("Form", model);
+            }
+            else
+            {
+                var list = DAO.List();
+                return View(list);
+            }
+
+        }
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            if (HelperController.CheckLogin(HttpContext.Session))
+            {
+                ViewBag.Login = true;
+                base.OnActionExecuting(context);
+            }
+        }
+
+
     }
 }

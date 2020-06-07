@@ -11,6 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Login\Form.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\PostIt\Form.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

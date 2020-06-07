@@ -11,9 +11,12 @@
         <form action="Save" method="post" enctype="multipart/form-data">
 
             <input type="hidden" name="Operation" value="@ViewBag.Operacao" />
-            <input type="hidden" name="id" value="@Model.id" class="form-control disabled" readonly />
+            <input type="hidden" name="id" value="@Model.id" class="form-control" />
             <span asp-validation-for="id" class="text-danger"></span>
-            <br />
+            <input type="hidden" name="created_at" value="@Model.created_at" class="form-control" />
+            <span asp-validation-for="created_at" class="text-danger"></span>
+            <input type="hidden" name="updated_at" value="@Model.updated_at" class="form-control" />
+            <span asp-validation-for="updated_at" class="text-danger"></span>
 
             <label for="header" class="control-label">Nome</label>
             <input type="text" name="header" value="@Model.header" class="form-control" />
@@ -34,12 +37,6 @@
             <input type="text" name="status" value="@Model.status" class="form-control" />
             <span asp-validation-for="status" class="text-danger"></span>
             <br />
-
-            <input type="hidden" name="created_at" value="@Model.created_at" class="form-control" />
-            <span asp-validation-for="created_at" class="text-danger"></span>
-
-            <input type="hidden" name="updated_at" value="@Model.updated_at" class="form-control" />
-            <span asp-validation-for="updated_at" class="text-danger"></span>
 
             <input type="submit" value="Salvar Dados" class="btn btn-success" />
             <br />

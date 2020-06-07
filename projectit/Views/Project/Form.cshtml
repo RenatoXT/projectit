@@ -9,26 +9,31 @@
 <div class="row">
     <div class="col-md-4">
         <form action="Save" method="post" enctype="multipart/form-data">
-            <span -for="Id" class="text-danger"></span>
+
             <input type="hidden" name="Operation" value="@ViewBag.Operacao" />
+            <input type="hidden" name="id" value="@Model.id" class="form-control" />
+            <span asp-validation-for="id" class="text-danger"></span>
+            <input type="hidden" name="created_at" value="@Model.created_at" class="form-control" />
+            <span asp-validation-for="created_at" class="text-danger"></span>
+            <input type="hidden" name="updated_at" value="@Model.updated_at" class="form-control" />
+            <span asp-validation-for="updated_at" class="text-danger"></span>
 
-
-            <label for="code" class="control-label">Code</label>
-            <input type="text" name="code" value="@Model.code" class="form-control" />
-            <span asp-validation-for="code" class="text-danger"></span>
-            <br />
-
+            @if (ViewBag.Operacao == "I")
+            {
+                <label for="code" class="control-label">Nome do Projeto</label>
+                <input type="text" name="code" value="@Model.code" class="form-control" required />
+                <span asp-validation-for="code" class="text-danger"></span>
+                <br />
+            }
+            else
+            {
+                <input type="hidden" name="code" value="@Model.code" class="form-control" />
+            }
+            
             <label for="description" class="control-label">Descrição</label>
             <input type="text" name="description" value="@Model.description" class="form-control" />
             <span asp-validation-for="description" class="text-danger"></span>
             <br />
-
-
-            <input type="hidden" name="created_at" value="@Model.created_at" class="form-control" />
-            <span asp-validation-for="created_at" class="text-danger"></span>
-
-            <input type="hidden" name="updated_at" value="@Model.updated_at" class="form-control" />
-            <span asp-validation-for="updated_at" class="text-danger"></span>
 
             <label asp-for="picture" class="control-label" />
             <input type="file" name="picture" id="picture" onchange="exibirImagem()" class="btn btn-secondary" />

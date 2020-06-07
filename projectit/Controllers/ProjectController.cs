@@ -34,15 +34,12 @@ namespace projectit.Controllers
         {
             base.ValidateData(model, Operation);
 
-            if (string.IsNullOrEmpty(model.description))
-                ModelState.AddModelError("description", "Preencha a descrição.");
+            //if (string.IsNullOrEmpty(model.description))
+            //    ModelState.AddModelError("description", "Preencha a descrição.");
 
             if (model.code is null)
                 ModelState.AddModelError("code", "Campo Obrigatório.");
 
-
-            if (model.picture == null && Operation == "I")
-                ModelState.AddModelError("Imagem", "Escolha uma imagem");
             if (model.picture != null && model.picture.Length / 1024 / 1024 >= 2)
                 ModelState.AddModelError("Imagem", "Imagem limitada à 2MB.");
 

@@ -1,10 +1,10 @@
-﻿@model TeamViewModel
+﻿@model UsersViewModel
 @{
     ViewData["Title"] = "Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Cadastro de Time</h2>
+<h2>Cadastro de Usuário</h2>
 
 <div class="row">
     <div class="col-md-4">
@@ -18,19 +18,36 @@
             <input type="hidden" name="updated_at" value="@Model.updated_at" class="form-control" />
             <span asp-validation-for="updated_at" class="text-danger"></span>
 
-            <label for="name" class="control-label" >Name</label>
-            <input type="text" name="name" value="@Model.name" class="form-control" required />
-            <span asp-validation-for="name" class="text-danger"></span>
+            @if (ViewBag.Operacao == "I")
+            {
+                <label for="name" class="control-label">Nome</label>
+                <input type="text" name="name" value="@Model.name" class="form-control" required />
+                <span asp-validation-for="name" class="text-danger"></span>
+                <br />
+            }
+            else
+            {
+                <input type="hidden" name="name" value="@Model.name" class="form-control" />
+            }
+
+            <label for="nickname" class="control-label">Nickname</label>
+            <input type="text" name="nickname" value="@Model.nickname" class="form-control" required />
+            <span asp-validation-for="nickname" class="text-danger"></span>
             <br />
 
-            <label for="skill" class="control-label">Skill</label>
-            <input type="text" name="skill" value="@Model.skill" class="form-control" />
-            <span asp-validation-for="skill" class="text-danger"></span>
-
+            <label for="email" class="control-label">Email</label>
+            <input type="text" name="email" value="@Model.email" class="form-control" required />
+            <span asp-validation-for="email" class="text-danger"></span>
             <br />
+
+            <label for="password" class="control-label">Password</label>
+            <input type="password" name="password" value="@Model.password" class="form-control" required />
+            <span asp-validation-for="password" class="text-danger"></span>
+            <br />
+
             <label asp-for="picture" class="control-label" />
             <input type="file" name="picture" id="picture" onchange="exibirImagem()" class="btn btn-secondary" />
-            <img id="imgPreview" src="data:image/jpeg;base64,@Model.Base64picture" class="img-responsive" width="100" />
+            <img id="imgPreview" src="data:image/jpeg;base64,@Model.picture" class="img-responsive" width="100" />
             <span asp-validation-for="picture" class="text-danger"></span>
             <br />
 
@@ -49,6 +66,6 @@
         oFReader.onload = function (oFREvent) {
             document.getElementById("imgPreview").src = oFREvent.target.result;
         };
-
+    
     }
 </script>

@@ -11,34 +11,39 @@
         <form action="Save" method="post" enctype="multipart/form-data">
 
             <input type="hidden" name="Operation" value="@ViewBag.Operacao" />
-            <input type="hidden" name="id" value="@Model.id" class="form-control disabled" readonly />
-            <br />
+            <input type="hidden" name="id" value="@Model.id" class="form-control" />
+            <span asp-validation-for="id" class="text-danger"></span>
+            <input type="hidden" name="created_at" value="@Model.created_at" class="form-control" />
+            <span asp-validation-for="created_at" class="text-danger"></span>
+            <input type="hidden" name="updated_at" value="@Model.updated_at" class="form-control" />
+            <span asp-validation-for="updated_at" class="text-danger"></span>
 
-            <label for="name" class="control-label">Nome</label>
-            <input type="text" name="name" value="@Model.name" class="form-control" />
-            <span asp-validation-for="name" class="text-danger"></span>
-            <br />
+            @if (ViewBag.Operacao == "I")
+            {
+                <label for="name" class="control-label">Nome</label>
+                <input type="text" name="name" value="@Model.name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+                <br />
+            }
+            else
+            {
+                <input type="hidden" name="name" value="@Model.name" class="form-control" />
+            }
 
             <label for="nickname" class="control-label">Nickname</label>
-            <input type="text" name="nickname" value="@Model.nickname" class="form-control" />
+            <input type="text" name="nickname" value="@Model.nickname" class="form-control" required/>
             <span asp-validation-for="nickname" class="text-danger"></span>
             <br />
 
             <label for="email" class="control-label">Email</label>
-            <input type="text" name="email" value="@Model.email" class="form-control" />
+            <input type="email" name="email" value="@Model.email" class="form-control" required />
             <span asp-validation-for="email" class="text-danger"></span>
             <br />
 
             <label for="password" class="control-label">Password</label>
-            <input type="password" name="password" value="@Model.password" class="form-control" />
+            <input type="password" name="password" value="@Model.password" class="form-control" required/>
             <span asp-validation-for="password" class="text-danger"></span>
             <br />
-
-            <input type="hidden" name="created_at" value="@Model.created_at" class="form-control" />
-            <span asp-validation-for="created_at" class="text-danger"></span>
-
-            <input type="hidden" name="updated_at" value="@Model.updated_at" class="form-control" />
-            <span asp-validation-for="updated_at" class="text-danger"></span>
 
             <label asp-for="picture" class="control-label" />
             <input type="file" name="picture" id="picture" onchange="exibirImagem()" class="btn btn-secondary" />

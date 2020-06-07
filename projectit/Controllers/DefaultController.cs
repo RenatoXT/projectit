@@ -11,12 +11,12 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace projectit.Controllers
 {
+
     public class DefaultController<T> : Controller where T : DefaultViewModel
     {
         protected DefaultDAO<T> DAO { get; set; }
-        protected bool GenNextId { get; set; }
 
-        public IActionResult Index()
+        public virtual IActionResult Index()
         {
             var list = DAO.List();
             return View(list);
@@ -26,15 +26,9 @@ namespace projectit.Controllers
         {
             ViewBag.Operacao = "I";
             T model = Activator.CreateInstance(typeof(T)) as T;
-            //PopViewData("I", model);
             return View("Form", model);
         }
 
-        //protected virtual void PopViewData(string Operation, T model)
-        //{
-        //    if (GenNextId && Operation == "I")
-        //        model.id = DAO.NextId();
-        //}
 
         public IActionResult Save(T model, string Operation)
         {
@@ -44,13 +38,20 @@ namespace projectit.Controllers
                 if (ModelState.IsValid == false)
                 {
                     ViewBag.Operacao = Operation;
-                    //PopViewData(Operation, model);
                     return View("Form", model);
                 }
                 else
                 {
                     if (Operation == "I")
+                    {
                         DAO.Insert(model);
+
+                        if (!HelperController.CheckLogin(HttpContext.Session))
+                        {
+                            HttpContext.Session.SetString("Login", "true");
+                            return RedirectToAction("Index", "Home");
+                        }
+                    }
                     else
                         DAO.Update(model);
 
@@ -61,7 +62,6 @@ namespace projectit.Controllers
             {
                 ViewBag.Erro = "Ocorreu um erro: " + erro.Message;
                 ViewBag.Operacao = Operation;
-                //PopViewData(Operation, model);
                 return View("Form", model);
             }
         }
@@ -76,7 +76,6 @@ namespace projectit.Controllers
                     return RedirectToAction("index");
                 else
                 {
-                    //PopViewData("A", model);
                     return View("Form", model);
                 }
             }
@@ -112,12 +111,14 @@ namespace projectit.Controllers
             if (model.updated_at > DateTime.Now)
                 ModelState.AddModelError("updated_at", "Data de atualização inválida");
         }
-        
+
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
+            //if (!HelperController.CheckRegister(HttpContext.Session))
+            //    context.Result = RedirectToAction("Create", "Users");
             if (!HelperController.CheckLogin(HttpContext.Session))
-                context.Result = RedirectToAction("Index", "Login");
+                context.Result = RedirectToAction("Create", "Users");
             else
             {
                 ViewBag.Login = true;

@@ -16,6 +16,7 @@ namespace projectit.DAO
         }
 
         protected abstract SqlParameter[] CreateParams(T model);
+        protected abstract SqlParameter[] UpdateParams(T model);
         protected abstract T MountModel(DataRow register);
         protected string Table { get; set; }
         protected abstract void SetTable();
@@ -28,7 +29,7 @@ namespace projectit.DAO
 
         public virtual void Update(T model)
         {
-            HelperDAO.RunProc("spUpdate_" + Table, CreateParams(model));
+            HelperDAO.RunProc("spUpdate_" + Table, UpdateParams(model));
         }
 
         public virtual void Delete(int id)
@@ -36,6 +37,7 @@ namespace projectit.DAO
             var p = new SqlParameter[]
             {
                 new SqlParameter("id", id),
+                new SqlParameter("id_name", Table.ToLower().Replace( "tb", "") + "_id"),
                 new SqlParameter("table", Table)
             };
             HelperDAO.RunProc("spDelete", p);
@@ -45,7 +47,8 @@ namespace projectit.DAO
         {
             var p = new SqlParameter[]
             {
-                new SqlParameter(Table.ToLower().Replace( "tb", "") + "_id", id),
+                new SqlParameter("id", id),
+                new SqlParameter("id_name", Table.ToLower().Replace( "tb", "") + "_id"),
                 new SqlParameter("table", Table)
             };
 

@@ -14,12 +14,27 @@ namespace projectit.DAO
         {
             SqlParameter[] param =
             {
-                //new SqlParameter("postit_id", model.id),
                 new SqlParameter("postit_header", model.header),
                 new SqlParameter("postit_body", model.body),
                 new SqlParameter("postit_doing_by", model.doing_by),
                 new SqlParameter("postit_status", model.status),
                 new SqlParameter("postit_created_at", DateTime.Now),
+                new SqlParameter("postit_updated_at", DateTime.Now)
+
+            };
+
+            return param;
+        }
+
+        protected override SqlParameter[] UpdateParams(PostItViewModel model)
+        {
+            SqlParameter[] param =
+            {
+                new SqlParameter("id", model.id),
+                new SqlParameter("postit_header", model.header),
+                new SqlParameter("postit_body", model.body),
+                new SqlParameter("postit_doing_by", model.doing_by),
+                new SqlParameter("postit_status", model.status),
                 new SqlParameter("postit_updated_at", DateTime.Now)
 
             };

@@ -17,5 +17,15 @@ namespace projectit.Controllers
             else
                 return true;
         }
+
+        //public static Boolean CheckRegister(ISession session)
+        //{
+        //    string register = session.GetString("Register");
+        //    if (register == null)
+        //        return false;
+        //    else
+        //        return true;
+        //}
     }
+
 }

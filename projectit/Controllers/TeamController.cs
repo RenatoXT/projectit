@@ -38,12 +38,6 @@ namespace projectit.Controllers
             if (string.IsNullOrEmpty(model.name))
                 ModelState.AddModelError("name", "Preencha o o seu nome.");
 
-            if (string.IsNullOrEmpty(model.skill))
-                ModelState.AddModelError("skill", "Preencha a habilidade do time.");
-
-            if (model.picture == null && Operation == "I")
-                ModelState.AddModelError("picture", "Escolha uma imagem");
-
             if (model.picture != null && model.picture.Length / 1024 / 1024 >= 5)
                 ModelState.AddModelError("picture", "Imagem limitada à 5MB.");
 
@@ -60,5 +54,7 @@ namespace projectit.Controllers
                 }
             }
         }
+
+        
     }
 }
