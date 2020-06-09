@@ -7,6 +7,7 @@ namespace projectit.Models
     {
         public string code { get; set; }
         public string description { get; set; }
+        public int team_id { get; set; }
 
         public IFormFile picture { get; set; }
         public byte[] Byte_picture { get; set; }

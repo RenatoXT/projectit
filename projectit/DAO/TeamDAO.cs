@@ -10,6 +10,11 @@ namespace projectit.DAO
 {
     public class TeamDAO : DefaultDAO<TeamViewModel>
     {
+        protected override void SetTable()
+        {
+            Table = "tbTeam";
+        }
+
         protected override SqlParameter[] CreateParams(TeamViewModel model)
         {
             object imgByte = model.Byte_picture;
@@ -22,7 +27,8 @@ namespace projectit.DAO
                 new SqlParameter("team_name", model.name),
                 new SqlParameter("team_skill", model.skill),
                 new SqlParameter("team_created_at", DateTime.Now),
-                new SqlParameter("team_updated_at", DateTime.Now)
+                new SqlParameter("team_updated_at", DateTime.Now),
+                new SqlParameter("user_id", model.user_id)
 
             };
 
@@ -66,9 +72,23 @@ namespace projectit.DAO
             return model;
         }
 
-        protected override void SetTable()
+
+        public List<TeamViewModel> ListUserTeams(int users_id)
         {
-            Table = "tbTeam";
+            List<TeamViewModel> list = new List<TeamViewModel>();
+
+            var parameter = new SqlParameter[]
+            {
+                new SqlParameter("users_id", users_id)
+            };
+
+            DataTable table = HelperDAO.RunProcSelect("spListUserTeams", parameter);
+            //return table;
+            foreach (DataRow register in table.Rows)
+                list.Add(MountModel(register));
+            return list;
         }
+
+
     }
 }

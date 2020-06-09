@@ -12,6 +12,7 @@ namespace projectit.Models
         public string body { get; set; }
         public string doing_by { get; set; }
         public string status { get; set; }
+        public int project_id { get; set; }
             
     }
 }

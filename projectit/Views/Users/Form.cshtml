@@ -47,7 +47,7 @@
 
             <label asp-for="picture" class="control-label" />
             <input type="file" name="picture" id="picture" onchange="exibirImagem()" class="btn btn-secondary" />
-            <img id="imgPreview" src="data:image/jpeg;base64,@Model.picture" class="img-responsive" width="100" />
+            <img id="imgPreview" src="data:image/jpeg;base64,@Model.ImagemEmBase64" class="img-responsive" width="100" />
             <span asp-validation-for="picture" class="text-danger"></span>
             <br />
 

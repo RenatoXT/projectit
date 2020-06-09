@@ -38,11 +38,18 @@ namespace projectit.Controllers
             if (string.IsNullOrEmpty(model.header))
                 ModelState.AddModelError("header", "Preencha o título da ação.");
 
+            if (string.IsNullOrEmpty(model.doing_by) && model.status != "Stories")
+                ModelState.AddModelError("doing_by", "Preencha o responsável.");
+
             if (string.IsNullOrEmpty(model.body))
                 ModelState.AddModelError("body", "Preencha a descrição da ação.");
 
             if (string.IsNullOrEmpty(model.status))
                 ModelState.AddModelError("status", "Determine o status da ação.");
+
+            if (Operation != "A")
+                if (model.project_id <= 0)
+                ModelState.AddModelError("project_id", "Determine um projeto");
 
         }
     }
