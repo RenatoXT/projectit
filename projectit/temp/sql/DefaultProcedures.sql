@@ -70,7 +70,7 @@ CREATE TABLE tbUsers_Team (
 GO
 
 CREATE TABLE tbTeam_Project (
-	users_id INT,
+	team_id INT,
 	project_id INT
 )
 GO
@@ -104,13 +104,13 @@ ALTER TABLE [dbo].[tbProject_PostIt]
 GO
 
 ALTER TABLE [dbo].[tbTeam_Project] 
-  WITH CHECK ADD CONSTRAINT [FK_Ext_users_id_T] FOREIGN KEY([users_id]) 
-  REFERENCES [dbo].[tbUsers] ([users_id]) 
+  WITH CHECK ADD CONSTRAINT [FK_Ext_team_id_T] FOREIGN KEY([team_id]) 
+  REFERENCES [dbo].[tbTeam] ([team_id]) 
 
 GO
 
 ALTER TABLE [dbo].[tbTeam_Project] 
-  CHECK CONSTRAINT [FK_Ext_users_id_T] 
+  CHECK CONSTRAINT [FK_Ext_team_id_T] 
 
 GO
 
@@ -147,6 +147,9 @@ ALTER TABLE [dbo].[tbUsers_Team]
 
 GO
 
+-- DataBase Innitial Structure
+-------------------------------------------------------------------------------------------------------------------------------------------
+
 CREATE PROCEDURE spInsert_tbUsers
 (
 	@users_name VARCHAR(MAX),
@@ -172,7 +175,8 @@ CREATE PROCEDURE spInsert_tbTeam
 	@team_name VARCHAR(MAX),
 	@team_skill VARCHAR(50),
 	@team_created_at DATE,
-	@team_updated_at DATE
+	@team_updated_at DATE,
+	@user_id INT
 )
 AS
 BEGIN
@@ -180,6 +184,11 @@ BEGIN
 		( team_picture, team_name, team_skill, team_created_at,team_updated_at)
 	VALUES
 		( @team_picture, @team_name, @team_skill, @team_created_at, @team_updated_at)
+
+	DECLARE @last_team_id INT
+	SET @last_team_id = (SELECT MAX(team_id) FROM tbTeam)
+
+	EXECUTE spUsers_Team @user_id, @last_team_id
 END
 GO
 
@@ -189,7 +198,8 @@ CREATE PROCEDURE spInsert_tbProject
 	@project_picture VARBINARY(MAX),
 	@project_description VARCHAR(50),
 	@project_created_at DATE,
-	@project_updated_at DATE
+	@project_updated_at DATE,
+	@team_id INT
 )
 AS
 BEGIN
@@ -197,6 +207,11 @@ BEGIN
 		( project_code, project_picture, project_description, project_created_at, project_updated_at)
 	VALUES
 		( @project_code, @project_picture, @project_description, @project_created_at, @project_updated_at)
+
+	DECLARE @last_project_id INT
+	SET @last_project_id = (SELECT MAX(project_id) FROM tbProject)
+
+	EXECUTE spTeam_Project @team_id, @last_project_id
 END
 GO
 
@@ -207,7 +222,8 @@ CREATE PROCEDURE spInsert_tbPostIt
 	@postit_doing_by VARCHAR(50),
 	@postit_status VARCHAR(50),
 	@postit_created_at DATE,
-	@postit_updated_at DATE
+	@postit_updated_at DATE,
+	@project_id INT
 
 )
 AS
@@ -216,6 +232,11 @@ BEGIN
 		( postit_header, postit_body, postit_doing_by, postit_status, postit_created_at, postit_updated_at)
 	VALUES
 		( @postit_header, @postit_body, @postit_doing_by, @postit_status, @postit_created_at, @postit_updated_at)
+	
+	DECLARE @last_postit_id INT
+	SET @last_postit_id = (SELECT MAX(postit_id) FROM tbPostIt)
+
+	EXECUTE spProject_PostIt @project_id, @last_postit_id
 END
 GO
 
@@ -342,7 +363,7 @@ BEGIN
 END	
 GO
 
-ALTER PROCEDURE spLogin
+CREATE PROCEDURE spLogin
 (
 	@user	VARCHAR(MAX),
 	@password	VARCHAR(MAX)
@@ -358,12 +379,152 @@ BEGIN
 END
 GO
 
+-- Default Procedures
+-----------------------------------------------------------------------------------------------------------------
+
+CREATE PROCEDURE spProject_PostIt
+(
+	@project_id INT,
+	@postit_id INT
+)
+AS 
+BEGIN
+	INSERT INTO tbProject_PostIt
+		(project_id, postit_id)
+	VALUES
+		(@project_id, @postit_id)
+END
+GO
+
+
+CREATE PROCEDURE spTeam_Project
+(
+	@team_id INT,
+	@project_id INT
+)
+AS 
+BEGIN
+	INSERT INTO tbTeam_Project
+		(team_id, project_id)
+	VALUES
+		(@team_id, @project_id)
+END
+GO
+
+CREATE PROCEDURE spUsers_Team
+(
+	@users_id INT,
+	@team_id INT	
+)
+AS 
+BEGIN
+	INSERT INTO tbUsers_Team
+		(users_id, team_id)
+	VALUES
+		(@users_id, @team_id)
+END
+GO
+
+CREATE PROCEDURE spListPostIts
+(
+	@project_id INT
+)
+AS
+BEGIN
+	EXEC('SELECT * FROM tbPostIt WHERE tbPostIt.postit_id IN '+ 
+		'(SELECT postit_id FROM tbProject_PostIt WHERE project_id = ' + @project_id + ')')
+END
+GO
+
+CREATE PROCEDURE spListTeamMembers
+(
+	@team_id INT
+)
+AS
+BEGIN
+	EXEC('SELECT * FROM tbUsers WHERE tbUsers.users_id IN' + 
+'(SELECT users_id FROM tbUsers_Team WHERE team_id = ' + @team_id + ')')
+END
+GO
+
+CREATE PROCEDURE spListTeamProjects
+(
+	@team_id INT
+)
+AS
+BEGIN
+	EXEC('SELECT * FROM tbProject WHERE project_id IN' + 
+'(SELECT project_id FROM tbTeam_Project WHERE team_id = ' + @team_id + ')')
+END
+GO
+
+CREATE PROCEDURE spListProjectMembers
+(
+	@project_id INT
+)
+AS
+BEGIN
+
+	EXEC('SELECT * FROM tbUsers WHERE users_id IN ' + 
+		'(SELECT users_id FROM tbUsers_Team WHERE team_id IN ' + 
+		'( SELECT team_id FROM tbTeam_Project WHERE project_id =' + @project_id + '))')
+END
+GO
+
+CREATE PROCEDURE spListUserTeams
+(
+	@users_id INT
+)
+AS
+BEGIN
+
+	EXEC('SELECT * FROM tbTeam WHERE team_id IN 
+		(SELECT team_id FROM tbUsers_Team WHERE users_id =' + @users_id + ')')
+END
+GO
+-- Interactions Procedures
+----------------------------------------------------------------------------------------
+
 CREATE VIEW vwRetornaNick AS
-SELECT US.users_nickname FROM tbUsers_Team UT
+SELECT	US.users_nickname,
+		US.users_id
+FROM tbUsers_Team UT
 INNER JOIN tbUsers US ON US.users_id = UT.users_id
 GO
 
 CREATE VIEW vwRetornaTime AS
-SELECT TE.team_name FROM tbUsers_Team UT
+SELECT	TE.team_name,
+		TE.team_id
+FROM tbUsers_Team UT
 INNER JOIN tbTeam TE ON TE.team_id = UT.team_id
 GO
+
+CREATE VIEW vwRetornaProjeto AS
+SELECT	PR.project_description,
+		PR.project_code
+FROM tbProject_PostIt PP
+INNER JOIN tbProject PR ON PR.project_id = PP.project_id
+GO
+
+CREATE VIEW vwRetornaPostit AS
+SELECT  PT.postit_header,
+		PT.postit_id
+FROM tbProject_PostIt PP
+INNER JOIN tbPostIt PT ON PT.postit_id = PP.postit_id
+GO
+
+CREATE VIEW vwRetornaTimePr AS
+SELECT	te.team_name,
+		te.team_id
+FROM tbTeam_Project TP
+INNER JOIN tbTeam TE ON TE.team_id = TP.team_id
+GO
+
+CREATE VIEW vwRetornaProjetoPr AS
+SELECT	PR.project_description,
+		PR.project_id
+FROM tbTeam_Project TP
+INNER JOIN tbProject PR ON PR.project_id = TP.project_id
+GO
+
+spList 'tbUsers', 1

@@ -18,7 +18,7 @@
             <input type="hidden" name="updated_at" value="@Model.updated_at" class="form-control" />
             <span asp-validation-for="updated_at" class="text-danger"></span>
 
-            <label for="name" class="control-label" >Name</label>
+            <label for="name" class="control-label">Name</label>
             <input type="text" name="name" value="@Model.name" class="form-control" required />
             <span asp-validation-for="name" class="text-danger"></span>
             <br />
@@ -26,6 +26,12 @@
             <label for="skill" class="control-label">Skill</label>
             <input type="text" name="skill" value="@Model.skill" class="form-control" />
             <span asp-validation-for="skill" class="text-danger"></span>
+            <br />
+
+            <label for="user_id" class="control-label">Usuários</label>
+            <select asp-for="user_id" asp-items="ViewBag.Users" class="form-control"></select>
+            <span asp-validation-for="user_id" class="text-danger"></span>
+            <br />
 
             <br />
             <label asp-for="picture" class="control-label" />

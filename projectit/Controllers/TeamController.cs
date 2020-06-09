@@ -36,10 +36,16 @@ namespace projectit.Controllers
             base.ValidateData(model, Operation);
 
             if (string.IsNullOrEmpty(model.name))
-                ModelState.AddModelError("name", "Preencha o o seu nome.");
+                ModelState.AddModelError("name", "Preencha o seu nome.");
+
+            if (string.IsNullOrEmpty(model.skill))
+                ModelState.AddModelError("skill", "Preencha a habilidade principal da equipe.");
 
             if (model.picture != null && model.picture.Length / 1024 / 1024 >= 5)
                 ModelState.AddModelError("picture", "Imagem limitada à 5MB.");
+
+            if (model.user_id <= 0)
+                ModelState.AddModelError("user_id", "Selecione os membros do time");
 
             if (ModelState.IsValid)
             {

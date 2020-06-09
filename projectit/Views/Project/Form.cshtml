@@ -1,4 +1,5 @@
 ﻿@model ProjectViewModel
+
 @{
     ViewData["Title"] = "Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -29,15 +30,20 @@
             {
                 <input type="hidden" name="code" value="@Model.code" class="form-control" />
             }
-            
+
             <label for="description" class="control-label">Descrição</label>
-            <input type="text" name="description" value="@Model.description" class="form-control" />
+            <input type="text" name="description" value="@Model.description" class="form-control" required/>
             <span asp-validation-for="description" class="text-danger"></span>
+            <br />
+
+            <label for="team_id" class="control-label">Equipe Responsável</label>
+            <select asp-for="team_id" asp-items="ViewBag.Teams" class="form-control" value="@Model.team_id" required></select>
+            <span asp-validation-for="team_id" class="text-danger"></span>
             <br />
 
             <label asp-for="picture" class="control-label" />
             <input type="file" name="picture" id="picture" onchange="exibirImagem()" class="btn btn-secondary" />
-            <img id="imgPreview" src="data:image/jpeg;base64,@Model.picture" class="img-responsive" width="100" />
+            <img id="imgPreview" src="data:image/jpeg;base64,@Model.ImagemEmBase64" class="img-responsive" width="100" />
             <span asp-validation-for="picture" class="text-danger"></span>
             <br />
 

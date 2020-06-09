@@ -19,24 +19,33 @@
             <span asp-validation-for="updated_at" class="text-danger"></span>
 
             <label for="header" class="control-label">Nome</label>
-            <input type="text" name="header" value="@Model.header" class="form-control" />
+            <input type="text" name="header" value="@Model.header" class="form-control" required/>
             <span asp-validation-for="header" class="text-danger"></span>
             <br />
 
             <label for="body" class="control-label">Body</label>
-            <input type="text" name="body" value="@Model.body" class="form-control" />
+            <input type="text" name="body" value="@Model.body" class="form-control" required/>
             <span asp-validation-for="body" class="text-danger"></span>
             <br />
 
             <label for="doing_by" class="control-label">Sendo Feito por</label>
-            <input type="text" name="doing_by" value="@Model.doing_by" class="form-control" />
+            <input type="text" name="doing_by" value="@Model.doing_by" class="form-control" required/>
             <span asp-validation-for="doing_by" class="text-danger"></span>
             <br />
 
             <label for="status" class="control-label">Status</label>
-            <input type="text" name="status" value="@Model.status" class="form-control" />
+            <select asp-for="status" asp-items="ViewBag.PostItStatus" class="form-control" value="@Model.status"required></select>
             <span asp-validation-for="status" class="text-danger"></span>
             <br />
+
+            @if (ViewBag.Operation == "A")
+            {
+                <label for="project_id" class="control-label">Projeto</label>
+                <select asp-for="project_id" asp-items="ViewBag.Projects" class="form-control" value="1" required></select>
+                <span asp-validation-for="project_id" class="text-danger"></span>
+                <br />
+            }
+
 
             <input type="submit" value="Salvar Dados" class="btn btn-success" />
             <br />

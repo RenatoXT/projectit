@@ -10,6 +10,7 @@ namespace projectit.Models
 
         public IFormFile picture { get; set; }
         public byte[] Byte_picture { get; set; }
+        public int user_id { get; set; }
 
         public string Base64picture
         {

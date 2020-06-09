@@ -26,12 +26,13 @@ namespace projectit.Controllers
         {
             ViewBag.Operacao = "I";
             T model = Activator.CreateInstance(typeof(T)) as T;
+            PopCombos();
             return View("Form", model);
         }
 
-
         public IActionResult Save(T model, string Operation)
         {
+            PopCombos();
             try
             {
                 ValidateData(model, Operation);
@@ -68,6 +69,8 @@ namespace projectit.Controllers
 
         public IActionResult Edit(int id)
         {
+            PopCombos();
+
             try
             {
                 ViewBag.Operacao = "A";
@@ -112,7 +115,6 @@ namespace projectit.Controllers
                 ModelState.AddModelError("updated_at", "Data de atualização inválida");
         }
 
-
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             //if (!HelperController.CheckRegister(HttpContext.Session))
@@ -124,6 +126,82 @@ namespace projectit.Controllers
                 ViewBag.Login = true;
                 base.OnActionExecuting(context);
             }
+        }
+
+        private void PopCombos()
+        {
+            MakeListStatusCombo();
+            MakeListProjectsCombo();
+            MakeListTeamsCombo();
+            MakeListUsersCombo();
+        }
+
+        private void MakeListStatusCombo()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            list.Add(new SelectListItem("Stories", "0"));
+            list.Add(new SelectListItem("To Do", "1"));
+            list.Add(new SelectListItem("In Progress", "2"));
+            list.Add(new SelectListItem("Testing", "3"));
+            list.Add(new SelectListItem("Done", "4"));
+
+            ViewBag.PostItStatus = list;
+
+        }
+
+        private void MakeListProjectsCombo()
+        {
+            ProjectDAO dao = new ProjectDAO();
+            var models = dao.List();
+
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            list.Add(new SelectListItem("Selecione o Projeto...", "0"));
+
+            foreach (var model in models)
+            {
+                SelectListItem item = new SelectListItem(model.code, model.id.ToString());
+                list.Add(item);
+            }
+            ViewBag.Projects = list;
+
+        }
+
+        private void MakeListTeamsCombo()
+        {
+            TeamDAO dao = new TeamDAO();
+            var models = dao.List();
+
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            list.Add(new SelectListItem("Selecione a equipe...", "0"));
+
+            foreach (var model in models)
+            {
+                SelectListItem item = new SelectListItem(model.name, model.id.ToString());
+                list.Add(item);
+            }
+            ViewBag.Teams = list;
+
+        }
+
+        private void MakeListUsersCombo()
+        {
+            UsersDAO dao = new UsersDAO();
+            var models = dao.List();
+
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            list.Add(new SelectListItem("Selecione o usuário...", "0"));
+
+            foreach (var model in models)
+            {
+                SelectListItem item = new SelectListItem(model.name, model.id.ToString());
+                list.Add(item);
+            }
+            ViewBag.Users = list;
+
         }
     }
 }

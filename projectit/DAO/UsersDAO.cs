@@ -10,6 +10,12 @@ namespace projectit.DAO
 {
     public class UsersDAO : DefaultDAO<UsersViewModel>
     {
+
+        protected override void SetTable()
+        {
+            Table = "tbUsers";
+        }
+
         protected override SqlParameter[] CreateParams(UsersViewModel model)
         {
             object imgByte = model.Byte_picture;
@@ -87,9 +93,37 @@ namespace projectit.DAO
                 return true;
         }
 
-        protected override void SetTable()
+        public List<UsersViewModel> ListTeamMembers(int team_id)
         {
-            Table = "tbUsers";
+            List<UsersViewModel> list = new List<UsersViewModel>();
+
+            var parameter = new SqlParameter[]
+            {
+                new SqlParameter("team_id", team_id)
+            };
+
+            DataTable table = HelperDAO.RunProcSelect("spListTeamMembers", parameter);
+            //return table;
+            foreach (DataRow register in table.Rows)
+                list.Add(MountModel(register));
+            return list;
         }
+
+        public List<UsersViewModel> ListProjectMembers(int project_id)
+        {
+            List<UsersViewModel> list = new List<UsersViewModel>();
+
+            var parameter = new SqlParameter[]
+            {
+                new SqlParameter("project_id", project_id)
+            };
+
+            DataTable table = HelperDAO.RunProcSelect("spListProjectMembers", parameter);
+            //return table;
+            foreach (DataRow register in table.Rows)
+                list.Add(MountModel(register));
+            return list;
+        }
+
     }
 }

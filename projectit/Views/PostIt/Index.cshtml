@@ -5,6 +5,7 @@
 }
 
 <h2>Listagem de Post It</h2>
+<h2>@ViewBag.Project_it</h2>
 
 <a href="/postit/create">Novo Registro</a>
 
@@ -28,7 +29,7 @@
             <a href="postit/Edit?id=@postit.id">Editar</a>
         </td>
         <td>
-            <a href="javascript:deletePostIt(@postit.id)">Apagar</a>
+            <a href="javascript:deletePost(@postit.id)">Apagar</a>
         </td>
         <td>@postit.id</td>
         <td>@postit.header</td>
