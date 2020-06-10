@@ -1,6 +1,6 @@
 :root {
     --navbar_height: 50px;
-    --navbar_text_color: rgb(255,255,255)
+    --navbar_text_color: rgb(255, 255, 255)
 }
 
 body {
@@ -42,3 +42,42 @@ body {
     -moz-border-radius: 50%;
     border-radius: 50%
 }
+
+.navbar {
+    margin-bottom: 0;
+    background-color: #2d2d30;
+    border: 0;
+    font-size: 11px !important;
+    letter-spacing: 4px;
+    opacity: .9
+}
+
+    .navbar .navbar-brand, .navbar li a {
+        color: #d5d5d5 !important
+    }
+
+.navbar-nav li a:hover {
+    color: #fff !important
+}
+
+.navbar-nav li.active a {
+    color: #fff !important;
+    background-color: #29292c !important
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent
+}
+
+.open .dropdown-toggle {
+    color: #fff;
+    background-color: #555 !important
+}
+
+.dropdown-menu li a {
+    color: #000 !important
+}
+
+    .dropdown-menu li a:hover {
+        background-color: red !important
+    }

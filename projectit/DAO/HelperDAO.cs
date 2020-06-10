@@ -11,6 +11,7 @@ namespace projectit.DAO
     {
         public static void RunSQL(string sql, SqlParameter[] param)
         {
+
             using (SqlConnection connection = ConnectDB.GetConnection())
             {
                 using (SqlCommand command = new SqlCommand(sql, connection))

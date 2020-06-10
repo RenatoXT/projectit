@@ -48,6 +48,10 @@ namespace projectit.Controllers
             if (string.IsNullOrEmpty(model.password))
                 ModelState.AddModelError("password", "Preencha a senha");
 
+            //if (string.IsNullOrEmpty(model.confirm_password) || model.confirm_password == model.password)
+            //    ModelState.AddModelError("confirm_password", "Confirme a senha");
+            
+
             if (model.picture != null && model.picture.Length / 1024 / 1024 >= 5)
                 ModelState.AddModelError("picture", "Imagem limitada à 5MB.");
 

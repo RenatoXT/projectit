@@ -4,60 +4,90 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Cadastro de Usuário</h2>
+@*<div class="text-center">
 
-<div class="row">
-    <div class="col-md-4">
-        <form action="Save" method="post" enctype="multipart/form-data">
+        <a href="#myModal" class="trigger-btn" data-toggle="modal">Click to Open Login Modal</a>
+    </div>*@
 
-            <input type="hidden" name="Operation" value="@ViewBag.Operacao" />
-            <input type="hidden" name="id" value="@Model.id" class="form-control" />
-            <span asp-validation-for="id" class="text-danger"></span>
-            <input type="hidden" name="created_at" value="@Model.created_at" class="form-control" />
-            <span asp-validation-for="created_at" class="text-danger"></span>
-            <input type="hidden" name="updated_at" value="@Model.updated_at" class="form-control" />
-            <span asp-validation-for="updated_at" class="text-danger"></span>
+<!-- Modal HTML -->
+@*<div id="myModal" class="modal fade">*@
+<div class="modal-dialog modal-login">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="avatar">
+                <img id="imgPreview" src="data:image/jpeg;base64,@Model.ImagemEmBase64" class="img-responsive" width="100" />
+                <span asp-validation-for="picture" class="text-danger"></span>
+            </div>
+            <h4 class="modal-title">Registrar</h4>
+            @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+        </div>
+        <div class="modal-body">
+            <form action="Save" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="Operation" value="@ViewBag.Operacao" />
+                <input type="hidden" name="id" value="@Model.id" class="form-control" />
+                <span asp-validation-for="id" class="text-danger"></span>
+                <input type="hidden" name="created_at" value="@Model.created_at" class="form-control" />
+                <span asp-validation-for="created_at" class="text-danger"></span>
+                <input type="hidden" name="updated_at" value="@Model.updated_at" class="form-control" />
+                <span asp-validation-for="updated_at" class="text-danger"></span>
 
-            @if (ViewBag.Operacao == "I")
-            {
-                <label for="name" class="control-label">Nome</label>
-                <input type="text" name="name" value="@Model.name" class="form-control" />
-                <span asp-validation-for="name" class="text-danger"></span>
-                <br />
-            }
-            else
-            {
-                <input type="hidden" name="name" value="@Model.name" class="form-control" />
-            }
+                <div class="form-group">
 
-            <label for="nickname" class="control-label">Nickname</label>
-            <input type="text" name="nickname" value="@Model.nickname" class="form-control" required/>
-            <span asp-validation-for="nickname" class="text-danger"></span>
-            <br />
+                </div>
 
-            <label for="email" class="control-label">Email</label>
-            <input type="email" name="email" value="@Model.email" class="form-control" required />
-            <span asp-validation-for="email" class="text-danger"></span>
-            <br />
+                <div class="form-group">
+                    @if (ViewBag.Operacao == "I")
+                    {
+                        <label for="name" class="control-label">Nome</label>
+                        <input type="text" name="name" value="@Model.name" class="form-control" />
+                        <span asp-validation-for="name" class="text-danger"></span>
+                    }
+                    else
+                    {
+                        <input type="hidden" name="name" value="@Model.name" class="form-control" />
+                    }
+                </div>
 
-            <label for="password" class="control-label">Password</label>
-            <input type="password" name="password" value="@Model.password" class="form-control" required/>
-            <span asp-validation-for="password" class="text-danger"></span>
-            <br />
+                <div class="form-group">
+                    <label for="nickname" class="control-label">Usuário</label>
+                    <input type="text" name="nickname" value="@Model.nickname" class="form-control" required />
+                    <span asp-validation-for="nickname" class="text-danger"></span>
+                </div>
 
-            <label asp-for="picture" class="control-label" />
-            <input type="file" name="picture" id="picture" onchange="exibirImagem()" class="btn btn-secondary" />
-            <img id="imgPreview" src="data:image/jpeg;base64,@Model.ImagemEmBase64" class="img-responsive" width="100" />
-            <span asp-validation-for="picture" class="text-danger"></span>
-            <br />
+                <div class="form-group">
+                    <label for="email" class="control-label">Email</label>
+                    <input type="email" name="email" value="@Model.email" class="form-control" required />
+                    <span asp-validation-for="email" class="text-danger"></span>
+                </div>
 
-            <input type="submit" value="Salvar Dados" class="btn btn-success" />
-            <br />
-            <span class="text-danger">@ViewBag.Erro</span>
-        </form>
+                <div class="form-group">
+                    <label for="password" class="control-label">Senha</label>
+                    <input type="password" name="password" value="@Model.password" class="form-control" required />
+                    <span asp-validation-for="password" class="text-danger"></span>
+                </div>
+
+                @*<div class="form-group">
+                        <label for="confirm_password" class="control-label">Confirme a senha</label>
+                        <input type="password" name="confirm_password" value="@Model.confirm_password" class="form-control" required />
+                        <span asp-validation-for="confirm_password" class="text-danger"></span>
+                    </div>*@
+
+                <div class="form-group">
+                    <label asp-for="picture" class="control-label" />
+                    <input type="file" name="picture" id="picture" onchange="exibirImagem()" class="custom-file-input" />
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" value="Salvar Dados" class="btn btn-primary btn-lg btn-block login-btn">Cadastrar</button>
+                </div>
+                <span class="text-danger">@ViewBag.Erro</span>
+            </form>
+        </div>
     </div>
 </div>
 
+@*</div>*@
+@*</div>*@
 
 <script>
     function exibirImagem() {
@@ -66,6 +96,108 @@
         oFReader.onload = function (oFREvent) {
             document.getElementById("imgPreview").src = oFREvent.target.result;
         };
-    
+
     }
 </script>
+
+<style type="text/css">
+    body {
+        font-family: 'Varela Round', sans-serif;
+    }
+
+    .modal-login {
+        color: #636363;
+        width: 400px;
+    }
+
+        .modal-login .modal-content {
+            padding: 20px;
+            border-radius: 5px;
+            border: none;
+            box-shadow: #DDD22 3px 4px 8px;
+        }
+
+        .modal-login .modal-header {
+            border-bottom: none;
+            position: relative;
+            justify-content: center;
+        }
+
+        .modal-login h4 {
+            text-align: center;
+            font-size: 26px;
+            margin: 30px 0 -15px;
+        }
+
+        .modal-login .form-control:focus {
+            border-color: #70c5c022;
+        }
+
+        .modal-login .form-control, .modal-login .btn {
+            min-height: 40px;
+            border-radius: 2px;
+        }
+
+        .modal-login .close {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+
+        .modal-login .modal-footer {
+            background: #ecf0f1;
+            border-color: #dee4e7;
+            text-align: center;
+            justify-content: center;
+            margin: 0 -20px -20px;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+
+            .modal-login .modal-footer a {
+                color: #999;
+            }
+
+        .modal-login .avatar {
+            position: absolute;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            top: -70px;
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            z-index: 9;
+            background: #60c7c1;
+            padding: 15px;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        }
+
+            .modal-login .avatar img {
+                width: 100%;
+            }
+
+        .modal-login.modal-dialog {
+            margin-top: 80px;
+        }
+
+        .modal-login .btn {
+            color: #fff;
+            border-radius: 4px;
+            background: #60c7c1;
+            text-decoration: none;
+            transition: all 0.4s;
+            line-height: normal;
+            border: none;
+        }
+
+            .modal-login .btn:hover, .modal-login .btn:focus {
+                background: #45aba6;
+                outline: none;
+            }
+
+    .trigger-btn {
+        display: inline-block;
+        margin: 100px auto;
+    }
+</style>

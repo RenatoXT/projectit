@@ -130,10 +130,19 @@ namespace projectit.Controllers
 
         private void PopCombos()
         {
-            MakeListStatusCombo();
-            MakeListProjectsCombo();
-            MakeListTeamsCombo();
-            MakeListUsersCombo();
+            try
+            {
+                MakeListStatusCombo();
+                MakeListProjectsCombo();
+                MakeListTeamsCombo();
+                MakeListUsersCombo();
+            }
+            catch (Exception erro)
+            {
+                ViewBag.Erro = "Ocorreu um erro: " + erro.Message;
+                RedirectToAction("index");
+            }
+          
         }
 
         private void MakeListStatusCombo()

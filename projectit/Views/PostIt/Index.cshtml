@@ -5,46 +5,61 @@
 }
 
 <h2>Listagem de Post It</h2>
-<h2>@ViewBag.Project_it</h2>
 
-<a href="/postit/create">Novo Registro</a>
+<div class="btn-block">
+    <a class="btn btn-primary" href="/postit/create">Novo Registro</a>
+</div>
 
-<table class="table table-responsive">
-
-    <tr>
-        <th colspan="2" class="text-center">Ações</th>
-        <th>ID</th>
-        <th>Título</th>
-        <th>Corpo</th>
-        <th>Sendo Feito Por</th>
-        <th>Status</th>
-        <th>Criado</th>
-        <th>Modificado</th>
-    </tr>
-
-    @foreach (var postit in Model)
-    {
-    <tr>
-        <td>
-            <a href="postit/Edit?id=@postit.id">Editar</a>
-        </td>
-        <td>
-            <a href="javascript:deletePost(@postit.id)">Apagar</a>
-        </td>
-        <td>@postit.id</td>
-        <td>@postit.header</td>
-        <td>@postit.body</td>
-        <td>@postit.doing_by</td>
-        <td>@postit.status</td>
-        <td>@postit.created_at</td>
-        <td>@postit.updated_at</td>
-    </tr>
-    }
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th colspan="2" class="text-center">Ações</th>
+            <th>Título</th>
+            <th>Corpo</th>
+            <th>Sendo Feito Por</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var postit in Model)
+        {
+            <tr>
+                <td>
+                    <a href="postit/Edit?id=@postit.id">Editar</a>
+                </td>
+                <td>
+                    <a href="javascript:deletePost(@postit.id)">Apagar</a>
+                </td>
+                <td>@postit.header</td>
+                <td>@postit.body</td>
+                <td>@postit.doing_by</td>
+                <td>@postit.status</td>
+            </tr>
+        }
+    </tbody>
 </table>
 
 <script>
-    function deletePost(id){
-        if(confirm("Confirma a exclusão do registro?"))
+    function deletePost(id) {
+        if (confirm("Confirma a exclusão do registro?"))
             location.href = "postit/Delete?id=" + id;
     }
 </script>
+
+<style>
+    h2 {
+        text-align: center;
+    }
+
+    .table thead tr th {
+        text-align: center;
+    }
+
+    .btn {
+        float: right;
+    }
+
+    .table {
+        margin-top: 60px;
+    }
+</style>

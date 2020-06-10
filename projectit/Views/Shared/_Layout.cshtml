@@ -9,28 +9,63 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
-    @*<environment exclude="Development">
+    <environment exclude="Development">
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
                   asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
                   asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
             <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        </environment>*@
+        </environment>
 </head>
 <body>
-    <nav class="navbar navbar-fixed-top navbar-inverse">
-        <div class="container navbar_container">
+    @*<nav class="navbar navbar-fixed-top navbar-inverse">
+            <div class="container navbar_container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Project It</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+
+                        @if (ViewBag.Login == true)
+                        {
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li><a asp-area="" asp-controller="Users" asp-action="Index">Users</a></li>
+                            <li><a asp-area="" asp-controller="Team" asp-action="Index">Team</a></li>
+                            <li><a asp-area="" asp-controller="Project" asp-action="Index">Project</a></li>
+                            <li><a asp-area="" asp-controller="PostIt" asp-action="Index">PostIt</a></li>
+                            <li><a asp-area="" asp-controller="Login" asp-action="LogOff">Sair</a></li>
+
+                        }
+                        else
+                        {
+                            <li><a asp-area="" asp-controller="Login" asp-action="Register">Registrar</a></li>
+                            <li><a asp-area="" asp-controller="Login" asp-action="Index">Entrar</a></li>
+                        }
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>*@
+
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+        <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Project It</a>
+                <img src="https://midiatividades.files.wordpress.com/2012/10/post-it-note-with-push-pin.png" height="40"/>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
                     @if (ViewBag.Login == true)
                     {
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
@@ -39,36 +74,31 @@
                         <li><a asp-area="" asp-controller="Project" asp-action="Index">Project</a></li>
                         <li><a asp-area="" asp-controller="PostIt" asp-action="Index">PostIt</a></li>
                         <li><a asp-area="" asp-controller="Login" asp-action="LogOff">Sair</a></li>
+
                     }
                     else
                     {
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                         <li><a asp-area="" asp-controller="Login" asp-action="Register">Registrar</a></li>
                         <li><a asp-area="" asp-controller="Login" asp-action="Index">Entrar</a></li>
                     }
 
                 </ul>
-                @*<div class="profile">
-                    <p class="username">Renato</p>
-                    <div class="container_user_pic">
-                        <img src="https://avatars1.githubusercontent.com/u/53339726?s=460&u=8d1ddc36d476de4f571d40fbc055200f680e07a8&v=4" class="user_pic" />
-                    </div>
-                </div>*@
             </div>
         </div>
     </nav>
-
-
 
     <partial name="_CookieConsentPartial" />
 
     <div class="container body-content" id="body">
         @RenderBody()
-
-        <footer class="footer">
-            <hr />
-            <p>&copy; 2020 - ProjectIt</p>
-        </footer>
     </div>
+
+    <footer class="footer navbar-fixed-bottom">
+        <hr />
+        <p>&copy; 2020 - ProjectIt</p>
+    </footer>
 
 
 

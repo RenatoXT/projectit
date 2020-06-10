@@ -4,46 +4,70 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Listagem de Usuários</h2>
+    <h2>Listagem de Usuários</h2>
 
-<a href="/users/create">Novo Registro</a>
+    <div class="btn-block">
+        <a class="btn btn-primary" href="/users/create">Novo Registro</a>
+    </div>
 
-<table class="table table-responsive">
 
-    <tr>
-        <th colspan="2" class="text-center">Ações</th>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Nickname</th>
-        <th>Email</th>
-        <th>Senha</th>
-        <th>Criado</th>
-        <th>Modificado</th>
-    </tr>
 
-    @foreach (var user in Model)
-    {
-    <tr>
-        <td>
-            <a href="users/Edit?id=@user.id">Editar</a>
-        </td>
-        <td>
-            <a href="javascript:deleteUser(@user.id)">Apagar</a>
-        </td>
-        <td>@user.id</td>
-        <td>@user.name</td>
-        <td>@user.nickname</td>
-        <td>@user.email</td>
-        <td>@user.password</td>
-        <td>@user.created_at</td>
-        <td>@user.updated_at</td>
-    </tr>
-    }
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th colspan="2" class="text-center">Ações</th>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Nickname</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>
+                    <a href="users/Edit?id=@user.id">Editar</a>
+                </td>
+                <td>
+                    <a href="javascript:deleteUser(@user.id)">Apagar</a>
+                </td>
+                <td>@user.id</td>
+                <td>@user.name</td>
+                <td>@user.nickname</td>
+                <td>@user.email</td>
+            </tr>
+        }
+    </tbody>
 </table>
 
+
+
 <script>
-    function deleteUser(id){
-        if(confirm("Confirma a exclusão do registro?"))
+    function deleteUser(id) {
+        if (confirm("Confirma a exclusão do registro?"))
             location.href = "users/Delete?id=" + id;
     }
 </script>
+
+<style>
+    h2 {
+        text-align: center;
+    }
+
+    .table thead tr th {
+        text-align: center;
+    }
+
+    .btn {
+        float: right;
+    }
+
+    .table {
+        margin-top: 60px;
+    }
+
+</style>
+
+
+

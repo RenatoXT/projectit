@@ -1,12 +1,9 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
-:root {
-    --navbar_height: 50px;
-    --navbar_text_color: rgb(255, 255, 255);
-}
+
 
 body {
-    margin-top: var(--navbar_height);
+    margin-top: 50px;
     margin-bottom: 20px;
 }
 
@@ -20,7 +17,7 @@ body {
 /* NavBar */
 
 .navbar_container {
-    height: var(--navbar_height);
+    height: 50px;
     width: 100%;
     display: inline-block;
 }
@@ -33,7 +30,7 @@ body {
 
 .username {
     margin: 15px;
-    color: var(--navbar_text_color);
+    color: #000;
 }
 
 .container_user_pic {
@@ -47,4 +44,58 @@ body {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
+}
+
+/*Add a dark background color with a little bit see-through */
+.navbar {
+  margin-bottom: 0;
+  background-color: #2d2d30;
+  border: 0;
+  font-size: 14px;
+  letter-spacing: 4px;
+  opacity: 0.9;
+
+}
+
+/* Add a gray color to all navbar links */
+.navbar li a, .navbar .navbar-brand {
+  color: #d5d5d5;
+}
+
+/* On hover, the links will turn white */
+.navbar-nav li a:hover {
+  color: #fff ;
+}
+
+/* The active link */
+.navbar-nav li.active a {
+    color: #fff ;
+    background-color: #29292c;
+}
+
+/* Remove border color from the collapsible button */
+.navbar-default .navbar-toggle {
+  border-color: transparent;
+}
+
+.navbar-header
+
+/* Dropdown */
+.open .dropdown-toggle {
+  color: #fff ;
+  background-color: #555;
+}
+
+/* Dropdown links */
+.dropdown-menu li a {
+  color: #000;
+}
+
+.navbar-header img {
+    margin-top: 5px;
+}
+
+    /* On hover, the dropdown links will turn red */
+.dropdown-menu li a:hover {
+    background-color: red;
 }
